@@ -6,7 +6,7 @@ const HomePage = () => {
     <div>
       <h1 className="text-red-600 text-4xl">Hello World</h1>
       <Button>FSW 7.0</Button>
-      <Input placeholder="VAMOS SIMBORA FINALIZAR ESSE PROJETO!" />
+      <Input placeholder="VAMOS SIMBORA FINALIZAR ESSE PROJETO!z" />
     </div>
   );
 };
