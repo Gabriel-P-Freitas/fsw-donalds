@@ -20,18 +20,18 @@ model Restaurant {
   description    String
   avatarImageUrl String
   coverImageUrl  String
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
   menuCategories MenuCategory[]
   products       Product[]
   orders         Order[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 }
 
 model MenuCategory {
   id           String     @id @default(uuid())
+  name         String
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   restaurantId String
-  name         String
   products     Product[]
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
@@ -39,37 +39,37 @@ model MenuCategory {
 
 model Product {
   id             String         @id @default(uuid())
-  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-  restaurantId   String
-  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
-  menuCategoryId String
   name           String
   description    String
   price          Float
   imageUrl       String
   ingredients    String[]
   orderProducts  OrderProduct[]
+  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  restaurantId   String
+  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
+  menuCategoryId String
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
 }
 
 model Order {
-  id                Int                    @id @default(autoincrement())
-  restaurant        Restaurant             @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-  restaurantId      String
+  id                Int               @id @default(autoincrement())
   total             Float
   status            OrderStatus
-  consumptionMethod OrderConsumptionMethod
+  consumptionMethod ConsumptionMethod
+  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  restaurantId      String
   orderProducts     OrderProduct[]
-  createdAt         DateTime               @default(now())
-  updatedAt         DateTime               @updatedAt
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
 }
 
 model OrderProduct {
   id        String   @id @default(uuid())
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId   Int
   quantity  Int
   price     Float
@@ -83,7 +83,7 @@ enum OrderStatus {
   FINISHED
 }
 
-enum OrderConsumptionMethod {
+enum ConsumptionMethod {
   TAKEAWAY
   DINE_IN
 }
