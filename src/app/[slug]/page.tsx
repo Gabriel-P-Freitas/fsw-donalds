@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/prisma";
 
-import ConsumptionMethodOption from "./consumption-method-option";
+import ConsumptionMethodOption from "./components/consumption-method-option";
 
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>;
@@ -43,12 +43,14 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
           imageAlt="Para comer aqui"
           buttonText="Para comer aqui"
           option="DINE_IN"
+          slug={slug}
         />
         <ConsumptionMethodOption
           imageUrl="/TAKEAWAY.svg"
           imageAlt="Para levar"
           buttonText="Para levar"
           option="TAKEAWAY"
+          slug={slug}
         />
       </div>
     </main>
